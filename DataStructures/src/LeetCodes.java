@@ -4,9 +4,6 @@ public class LeetCodes{
             String one = "I";
             String five = "V";
             String ten = "X";
-
-            System.out.println("jhsvadjkgvsdkgjvdskj");
-
         }
     }
 }
