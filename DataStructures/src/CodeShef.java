@@ -143,14 +143,14 @@ public class CodeShef{
         }
     }
 
-    public static void subsets(int[] array){
-        ArrayList lists = new ArrayList();
+    public static ArrayList subsets(int[] array){
+        ArrayList<ArrayList> lists = new ArrayList();
         for(int i = 0; i < array.length; i++){
             for(int j = i; j < array.length; j++){
                 lists.add(subSetsArray(array,i, j + 1));
             }
         }
-        System.out.println(lists);
+        return lists;
     }
     private static ArrayList<Integer> subSetsArray(int[] array, int beginIndex, int endIndex){
         ArrayList<Integer> arraySliced = new ArrayList<Integer>();

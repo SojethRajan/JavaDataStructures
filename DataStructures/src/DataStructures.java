@@ -1,10 +1,11 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class DataStructures {
     
     public static void main(String[] args){
-        GeeksForGeeks.countFrequencies(new int[]{10, 20, 20, 10, 10, 20, 5, 20});
+        int[] array = {11, 13, 3, 14, 17, 3, 7, 9, 1, 11, 9, 15, 5 ,2, 2, 3};
+        var answer = CodingNinjas.getFrequencies(array);
+        System.out.println(Arrays.toString(answer));
     }
 }
+

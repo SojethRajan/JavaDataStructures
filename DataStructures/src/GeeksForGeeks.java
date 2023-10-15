@@ -13,7 +13,7 @@ public class GeeksForGeeks{
                     count++;
                 }
             }
-            System.out.println(numbers[i] + " " + count );
+            System.out.println(numbers[i] + " " + count);
         }
     }
 }
