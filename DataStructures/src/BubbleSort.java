@@ -1,16 +1,19 @@
 import java.util.Arrays;
 
 public class BubbleSort{
-    public static int[] bubbleSort(int[] array){
-        for(int i = 0; i < array.length; i++){
-            for(int j = 1; j < array.length - i; j++){
-                if(array[j] < array[j - 1]){
-                    int temp = array[j - 1];
-                    array[j - 1] = array[j];
-                    array[j] = temp;
+
+    public static void bubbleSort(int[] numbers){
+        for(int i = 0; i < numbers.length; i++){
+            for(int j = 0; j < numbers.length - i - 1; j++){
+                if(numbers[j] > numbers[ j + 1]){
+                    int temp = numbers[j + 1];
+                    numbers[j + 1] = numbers[j];
+                    numbers[j] = temp;
                 }
             }
         }
-        return array;
+        System.out.println(Arrays.toString(numbers));
     }
 }
+
+

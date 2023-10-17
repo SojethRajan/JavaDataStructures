@@ -2,16 +2,19 @@ import java.util.Arrays;
 
 public class InsertionSort{
 
-    public static void insertionSort(int[] array){
-        for(int i = 1; i < array.length; i++){
-            for(int j = i; j > 0; j--){
-                if(array[j] < array[j - 1]){
-                    int temp = array[j];
-                    array[j] = array[j - 1];
-                    array[j - 1] = temp;
+    public static void insertionSort(int[] numbers){
+        for(int i = 0; i < numbers.length - 1; i++){
+            for(int j = i + 1; j > 0; j--){
+                if(numbers[j] < numbers[j - 1]){
+                    int temp = numbers[j - 1];
+                    numbers[j - 1] = numbers[j];
+                    numbers[j] = temp;
+                }
+                else {
+                    break;
                 }
             }
         }
-        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(numbers));
     }
 }

@@ -2,18 +2,19 @@ import java.util.Arrays;
 
 public class SelectionSort{
 
-    public static int[] selectionSort(int[] array){
-        for(int i = 0; i < array.length; i++){
-            int max = getMax(array,array.length - 1 - i);
-                int temp = array[max];
-                array[max] = array[array.length - 1 - i];
-                array[array.length - 1 - i] = temp;
+    public static void selectionSort(int[] numbers){
+        for(int i = 0; i < numbers.length; i++){
+            int max = getMax(numbers,numbers.length - 1 - i);
+            int temp = numbers[max];
+            numbers[max] = numbers[numbers.length - 1 - i];
+            numbers[numbers.length - 1 -i] = temp;
         }
-        return array;
+        System.out.println(Arrays.toString(numbers));
     }
-    public static int getMax(int[] array, int stop){
+
+    private static int getMax(int[] array, int stop){
         int max = 0;
-        for(int i = 0; i <= stop; i++){
+        for(int i = 1; i <= stop; i++){
             if(array[i] > array[max]){
                 max = i;
             }
