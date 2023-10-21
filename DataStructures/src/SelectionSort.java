@@ -21,4 +21,24 @@ public class SelectionSort{
         }
         return max;
     }
+
+    public static int[] selectionSortRecursion(int[] array, int outer, int inner, int max){
+        if(outer == 0){
+            return array;
+        }
+        if(inner < outer){
+            if(array[inner] > array[max]){
+                return selectionSortRecursion(array,outer,inner + 1,inner);
+            }
+            else {
+                return selectionSortRecursion(array,outer,inner + 1,max);
+            }
+        }
+        else {
+            int temp = array[max];
+            array[max] = array[outer - 1];
+            array[outer - 1] = temp;
+            return selectionSortRecursion(array,--outer,0,0);
+        }
+    }
 }

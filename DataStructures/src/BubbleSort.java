@@ -14,6 +14,23 @@ public class BubbleSort{
         }
         System.out.println(Arrays.toString(numbers));
     }
+
+    public static int[] bubbleSortRecursion(int[] array, int outer, int inner){
+        if(outer == 0){
+            return array;
+        }
+        if(inner < outer){
+           if(array[inner] > array[inner + 1]){
+               int temp = array[inner];
+               array[inner] = array[inner + 1];
+               array[inner + 1] = temp;
+           }
+           return bubbleSortRecursion(array,outer,++inner);
+        }
+        else {
+            return bubbleSortRecursion(array,--outer,0);
+        }
+    }
 }
 
 
