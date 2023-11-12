@@ -1,5 +1,7 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.sun.source.tree.Tree;
+
+import javax.management.ObjectName;
+import java.util.*;
 
 public class LeetCodes{
     public static void sortStringArray(String[] array){
@@ -28,11 +30,13 @@ public class LeetCodes{
         return false;
     }
 
-    public static void rotateArrayKTimes(int[] array, int k){
-        k = k % array.length;
+    public static void rotateArrayLeftKTimes(int[] array, int k){
+        if( k > array.length){
+            k = k % array.length;
+        }
         rotateArray(array,0,array.length - 1);
         rotateArray(array,0,k - 1);
-        rotateArray(array,k,array.length - 1);
+        rotateArray(array,k,array.length - 1 );
 
         System.out.println(Arrays.toString(array));
 
@@ -127,4 +131,135 @@ public class LeetCodes{
         }
         return isPalindrome(str.substring(1, str.length() - 1));
     }
+
+    public boolean check(int[] nums) {
+        if(nums.length < 3){
+            return true;
+        }
+        int rotate = smallest(nums);
+        reverse(nums,rotate,nums.length - 1);
+        reverse(nums,0,rotate - 1);
+
+        for(int i = nums.length - 1; i > 0; i--){
+            if(nums[i] > nums[i - 1]){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    public int smallest(int[] array){
+        int smallest = 0;
+        for(int i = 1; i < array.length; i++){
+            if(array[i] <= array[smallest]){
+                smallest = i;
+            }
+        }
+        return smallest;
+    }
+    public void reverse(int[] array, int start, int stop){
+        for(int i = start; i <= stop; i++){
+            int temp = array[i];
+            array[i] = array[stop];
+            array[stop] = temp;
+            stop--;
+        }
+    }
+
+    public int removeDuplicates(int[] numbers) {
+        int i = 0;
+        int j = 0;
+        while( j < numbers.length){
+            if(numbers[i] == numbers[j]){
+                j++;
+            }
+            else {
+                i++;
+                numbers[i] = numbers[j];
+                j++;
+            }
+        }
+        return i + 1;
+    }
+
+    public int missingNumber(int[] array) {
+        TreeMap<Integer,Integer> maps = new TreeMap<>();
+        for(int i = 0; i < array.length; i++){
+            if(maps.containsKey(array[i])){
+                maps.put(array[i], maps.get(array[i]) + 1);
+            }
+            else {
+                maps.put(array[i], 1);
+            }
+        }
+        int i = 0;
+        for(Map.Entry entry : maps.entrySet()){
+            if(i != (Integer) entry.getKey()){
+                return i;
+            }
+            i++;
+        }
+        return array.length;
+    }
+
+    public void findMaxConsecutiveOnes(int[] array) {
+        int pointerOne = 0;
+        int pointerTwo = 0;
+        int max = 0;
+        int count = 0;
+        /*while(pointerOne < array.length){
+            while(pointerOne < array.length && array[pointerOne] != 1){
+                pointerOne++;
+                pointerTwo++;
+            }
+
+            while(pointerTwo < array.length && array[pointerTwo] == 1){
+                pointerTwo++;
+            }
+            if(pointerTwo < array.length || pointerOne < array.length){
+                int consecutive = pointerTwo - pointerOne;
+                if(max < consecutive){
+                    max = consecutive;
+                }
+                pointerOne = pointerTwo;
+            }
+        }
+        System.out.println(max);*/
+
+
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == 1){
+                count++;
+            }
+            else {
+                max = (count > max) ? count : max;
+                count = 0;
+            }
+        }
+        max = (count > max) ? count : max;
+        System.out.println(max);
+    }
+
+    public int singleNumber(int[] numbers) {
+        HashMap<Integer,Integer> maps = new HashMap<>();
+
+        for(int i = 0; i < numbers.length; i++){
+            if(maps.containsKey(numbers[i])){
+                maps.put(numbers[i], maps.get(numbers[i]) + 1);
+            }
+            else {
+                maps.put(numbers[i], 1);
+            }
+        }
+
+        int expectedValue = 1;
+        for(Map.Entry entries : maps.entrySet()){
+            if(expectedValue == (Integer) entries.getValue()){
+                return (Integer) entries.getKey();
+            }
+        }
+        return -1;
+    }
+
+
 }
