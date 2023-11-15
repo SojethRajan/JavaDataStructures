@@ -47,7 +47,6 @@ public class CustomArrayList{
     }
 
     public void removeAll(){
-        array = new int[0];
         _index = 0;
     }
 
