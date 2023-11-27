@@ -1,22 +1,16 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class DataStructures {
     
     public static void main(String[] args){
-        int[] array = {1,2,3,4,5,6,7};
-        CustomLinkedList list = new CustomLinkedList();
-        addElements(array,list);
-        list.display();
-        list.call();
-        list.display();
-
-
 
     }
-    public static void addElements(int[] array, CustomLinkedList list){
+    public static void addElements(int[] array, CustomQueue queue){
         for(int i = 0; i < array.length; i++){
-            list.add(array[i]);
+            queue.push(array[i]);
         }
     }
 }
