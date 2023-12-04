@@ -1,4 +1,6 @@
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class CodingNinjas{
 
@@ -193,7 +195,7 @@ public class CodingNinjas{
         return array;
     }
 
-    public static List< Integer > sortedUnionArray(int[] a, int[] b) {
+    public static List<Integer> sortedUnionArray(int[] a, int[] b) {
         // Write your code here
         //merge sort
         List<Integer> list = new ArrayList();
@@ -332,6 +334,55 @@ public class CodingNinjas{
             }
         }
         return start;
+    }
+
+    public static int maxDepth(String s) {
+        // Write your code here...
+        Stack<Character> stack = new Stack<>();
+        int size = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(!stack.isEmpty()){
+                if(s.charAt(i) == ')' && stack.peek() == '('){
+                    if(stack.size() > size){
+                        size = stack.size();
+                    }
+                    stack.pop();
+                    continue;
+                }
+            }
+            if(s.charAt(i) == '('){
+                stack.push(s.charAt(i));
+            }
+        }
+        return size;
+    }
+
+    public static void reverseWordsInSentence(String str){
+        String word = "";
+        String s = str.trim();
+        Stack<String> stack = new Stack<>();
+        int i = 0;
+        while(i < s.length()){
+            if(s.charAt(i) != ' '){
+                word = word + s.charAt(i);
+                i++;
+                if(i == s.length()){
+                    stack.push(word);
+                }
+            }
+            else{
+                stack.push(word);
+                word= "";
+                while(s.charAt(i) == ' '){
+                    i++;
+                }
+            }
+        }
+        String result = "";
+        while(!stack.isEmpty()){
+            result = result + stack.pop() + " ";
+        }
+        System.out.println(result.trim());
     }
 
 
