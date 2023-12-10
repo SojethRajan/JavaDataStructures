@@ -270,4 +270,58 @@ public class LeetCodes{
         }
         return "";
     }
+
+    public boolean rotateString(String s, String goal){
+        if(s.length() != goal.length()){
+            return false;
+        }
+        String joined = goal + goal;
+        int firstPointer = 0;
+        int secondPointer = 0;
+
+        if(joined.contains(s)){
+            return true;
+        }
+        return false;
+        /*while(secondPointer < joined.length()){
+            if(s.charAt(firstPointer) == joined.charAt(secondPointer)){
+                firstPointer++;
+                secondPointer++;
+                if(firstPointer == s.length()){
+                    return true;
+                }
+            }
+            else {
+                if(firstPointer != 0){
+                    firstPointer = 0; //resetting
+                }
+                else {
+                    secondPointer++;
+                }
+            }
+        }
+        return false;*/
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        int[] sourceMap = new int[26];
+        int[] targetMap = new int[26];
+
+        for(int i = 0; i < s.length(); i++){
+            int indexSource = s.charAt(i) - 'a';
+            int indexTarget = t.charAt(i) - 'a';
+            sourceMap[indexSource] += 1;
+            targetMap[indexTarget] += 1;
+        }
+
+        for(int i = 0; i < sourceMap.length; i++){
+            if(sourceMap[i] != targetMap[i]){
+                return false;
+            }
+        };
+        return true;
+    }
 }

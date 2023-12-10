@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
@@ -385,6 +386,35 @@ public class CodingNinjas{
         System.out.println(result.trim());
     }
 
+    public static String commonPrefix(String[] array, int n){
+        Arrays.sort(array);
+        String first = array[0];
+        String last = array[n - 1];
+        String prefix = "";
+        for(int i = 0; i < first.length() && i < last.length(); i++){
+            if(first.charAt(i) == last.charAt(i)){
+                prefix = prefix + first.charAt(i);
+            }
+            else {
+                break;
+            }
+        }
+        return prefix;
+    }
 
+    public static boolean areIsomorphic(String first, String second){
+        if(first.length() != second.length()){
+            return false;
+        }
+        int[] map1 = new int[200];
+        int[] map2 = new int[200];
+        for(int i = 0; i < first.length(); i++){
+            if(map1[first.charAt(i)] != map2[second.charAt(i)]){
+                return false;
+            }
+            map1[first.charAt(i)] = i + 1;
+            map2[second.charAt(i)] = i + 1;
+        }
+        return true;
+    }
 }
-
