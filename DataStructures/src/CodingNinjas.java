@@ -417,4 +417,18 @@ public class CodingNinjas{
         }
         return true;
     }
+
+    /*If only Node class is given*/
+    public static Node constructLL(int []arr) {
+       Node head = new Node(arr[0]);
+       Node pointer = head;
+        for(int i = 1; i < arr.length; i++){
+            Node temp = new Node(arr[i]);
+            pointer.next = temp;
+            pointer = temp;
+        }
+        return head;
+    }
+
+
 }

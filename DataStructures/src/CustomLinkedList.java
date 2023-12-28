@@ -182,9 +182,9 @@ public class CustomLinkedList{
         return merged;
     }
 
-    public void call(){
-        reArrange(head);
-        //System.out.println(ans);
+    public void call(int k){
+        var ans = searchInLinkedList(head,k);
+        System.out.println(ans);
     }
     public void addDiff(int element){
         Node node = new Node();
@@ -380,5 +380,17 @@ public class CustomLinkedList{
             start.next = null;
         }
 
+    }
+
+    public int searchInLinkedList(Node head, int k){
+        // Write Your Code Here.
+        Node temp = head;
+        while(temp.next != null){
+            if(temp.value == k){
+                return 1;
+            }
+            temp = temp.next;
+        }
+        return 0;
     }
 }
