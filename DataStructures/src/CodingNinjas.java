@@ -1,5 +1,3 @@
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class CodingNinjas{
             return b;
         }
         return calGCD(b%a,a);*/
+
         int gcd = 1;
         for(int i = Math.min(n, m); i > 1; i--){
             if(n % i == 0 && m % i == 0){
@@ -245,32 +244,37 @@ public class CodingNinjas{
             }
             j++;
         }
+        System.out.println(length);
         return length;
     }
 
     public static int longestSubArrayWithKSumPositivesNegativesZeros(int[] a, int k){
         long sum = 0;
+        boolean flag = false;
         int maxLength = 0;
         HashMap<Integer, Long> maps = new HashMap<>();
         for(int i = 0; i < a.length; i++){
             sum = sum + a[i];
+            if(sum == k){
+                flag = true;
+                maxLength = Math.max(maxLength, i + 1);
+            }
             if(!maps.containsValue(sum)){
                 maps.put(i,sum);
             }
-            if(sum == k){
-                maxLength = i + 1;
-            }
-            long rem = sum - k;
-            for(Map.Entry entry : maps.entrySet()){
+            long rem = Math.abs(sum - k);
+            for(Map.Entry<Integer,Long> entry : maps.entrySet()){
                 if(rem == (Long)entry.getValue()){
                     maxLength = Math.max(maxLength, i - (Integer) entry.getKey());
+                    /*length = Math.max(length , (int)entry.getKey() + 1);*/
                     break;
                 }
             }
-
         }
-
-        return maxLength;
+        if(flag){
+            return maxLength;
+        }
+        return 0;
     }
 
     public static int lowerBound(int []array, int x) {
@@ -418,7 +422,7 @@ public class CodingNinjas{
         return true;
     }
 
-    /*If only Node class is given*/
+   /*If only Node class is given*/
     public static Node constructLL(int []arr) {
        Node head = new Node(arr[0]);
        Node pointer = head;
@@ -430,5 +434,17 @@ public class CodingNinjas{
         return head;
     }
 
-
+    public static List<Integer> superiorElements(int[] array) {
+        List<Integer> list = new ArrayList<>();
+        list.add(array[array.length - 1]);
+        int max = array[array.length - 1];
+        for(int i = array.length - 2; i >= 0; i--){
+            if(array[i] > max){
+                max = array[i];
+                list.add(array[i]);
+            }
+        }
+        //System.out.println(list);
+        return list;
+    }
 }

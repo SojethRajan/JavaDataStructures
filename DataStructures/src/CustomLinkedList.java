@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomLinkedList{
@@ -8,6 +10,13 @@ public class CustomLinkedList{
     private class Node{
         private int value ;
         private Node next;
+
+        public Node(){
+
+        }
+        public Node(int value){
+            this.value = value;
+        }
     }
 
 /*LinkedList Internal Implementation*/
@@ -16,7 +25,7 @@ public class CustomLinkedList{
         return size;
     }
 
-    public void display(){
+    public void display(Node head){
         Node pointer = head;
         while(pointer != null){
             System.out.print(pointer.value + " -> ");
@@ -25,7 +34,6 @@ public class CustomLinkedList{
         System.out.println("END");
     }
     /*Adding*/
-
     public void addFirst(int element){
         Node node = new Node();
         node.value = element;
@@ -137,7 +145,6 @@ public class CustomLinkedList{
         size--;
     }
 
-
     /*Questions*/
     public void removeDuplicates(){
         Node temp = head;
@@ -182,9 +189,10 @@ public class CustomLinkedList{
         return merged;
     }
 
-    public void call(int k){
-        var ans = searchInLinkedList(head,k);
-        System.out.println(ans);
+    public void call(){
+        /*used for calling the method*/
+        var value = sortLL(head);
+        display(head);
     }
     public void addDiff(int element){
         Node node = new Node();
@@ -379,7 +387,6 @@ public class CustomLinkedList{
         if(start != null){
             start.next = null;
         }
-
     }
 
     public int searchInLinkedList(Node head, int k){
@@ -393,4 +400,144 @@ public class CustomLinkedList{
         }
         return 0;
     }
+
+    public Node reverseRecursion(Node head){
+        return helper(null,head,head.next);
+    }
+    public Node helper(Node previous, Node current, Node next){
+        if(current == null){
+            return previous;
+        }
+        current.next = previous;
+        Node nxt = (next != null) ? next.next : null;
+        return helper(current,next,nxt);
+
+    }
+
+    public Node oddEvenList(Node head){
+        ArrayList<Integer> list = new ArrayList<>();
+        Node temp = head;
+        addAlternateElements(temp, list);
+        temp = head.next;
+        addAlternateElements(temp, list);
+        temp = head;
+        int i = 0;
+        while(temp != null){
+            temp.value = list.get(i);
+            i++;
+            temp = temp.next;
+        }
+        return head;
+    }
+    public void addAlternateElements(Node head, ArrayList<Integer> lists){
+
+        Node temp = head;
+
+        while(temp != null && temp.next != null){
+            lists.add(temp.value);
+            temp = temp.next.next;
+        }
+        if(temp != null){
+            lists.add(temp.value);
+        }
+    }
+
+    public Node removeKthNode(Node head, int k){
+        if(head == null || head.next == null){
+            return null;
+        }
+        Node temp = reverse(head);
+        Node end = temp;
+        if(k == 1){
+            temp = temp.next;
+            end = temp;
+            return reverse(end);
+        }
+        int counter = 1;
+        while(counter < k - 1){
+            temp = temp.next;
+            counter++;
+        }
+        temp.next = temp.next.next;
+        return reverse(end);
+    }
+
+    public Node deleteMiddle(Node head){
+        if(head.next == null){
+            return null;
+        }
+        Node midPrevious = getMiddlePrevious(head);
+        midPrevious.next = midPrevious.next.next;
+        return head;
+    }
+    public Node getMiddlePrevious(Node head){
+        Node fast = head;
+        Node slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            if(fast != null && fast.next != null){
+                slow = slow.next;
+            }
+        }
+        return slow;
+    }
+
+    public Node sortLL(Node head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        int count = getLength(head);
+        helper(count,0);
+        return head;
+    }
+    public void helper(int outer, int inner){
+        if(outer == 0){
+            return;
+        }
+        Node first = getNode(inner, head);
+        Node second = getNode(inner + 1,head);
+        if(inner < outer){
+            if(first.value > second.value){
+                if(first == head){
+                    first.next = second.next;
+                    second.next = first;
+                    head = second;
+                }
+                else if(second.next == null){
+                    second.next = first;
+                    first.next = null;
+                    Node previous = getNode(inner - 1, head);
+                    previous.next = second;
+                }
+                else {
+                    first.next = second.next;
+                    second.next = first;
+                    Node previous = getNode(inner - 1, head);
+                    previous.next = second;
+                }
+            }
+            helper(outer,inner + 1);
+        }
+        helper(outer - 1, 0);
+    }
+    public int getLength(Node head){
+        Node temp = head;
+        int counter = 0;
+        while(temp != null){
+            temp = temp.next;
+            counter++;
+        }
+        return counter;
+    }
+    public Node getNode(int index, Node head){
+        Node temp = head;
+        int counter = 0;
+        while(counter < index && temp.next != null){
+            temp = temp.next;
+            counter++;
+        }
+        return temp;
+    }
+
+
 }

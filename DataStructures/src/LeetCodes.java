@@ -4,6 +4,11 @@ import javax.management.ObjectName;
 import java.util.*;
 
 public class LeetCodes{
+    private void swap(int[] array, int a, int b){
+        int temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
+    }
     public static void sortStringArray(String[] array){
         for(int i = 0; i < array.length; i++){
             for(int j = 1; j < array.length - i; j++){
@@ -48,17 +53,6 @@ public class LeetCodes{
             array[end] = temp;
             end--;
         }
-    }
-
-    public static int[] twoSum(int[] nums, int target) {
-        for(int i = 0; i < nums.length; i++){
-            for(int j = i + 1; j < nums.length; j++){
-                if(nums[i] + nums[j] == target){
-                    return new int[]{i,j};
-                }
-            }
-        }
-        return new int[]{-1,-1};
     }
 
     public static int search(int[] numbers, int target) {
@@ -323,5 +317,208 @@ public class LeetCodes{
             }
         };
         return true;
+    }
+
+    public void sortColors(int[] nums) {
+        if(nums.length == 0){
+            return;
+        }
+        int zeros = 0;
+        int ones = 0;
+        int twos = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 0){
+                zeros++;
+            } else if(nums[i] == 1){
+                ones++;
+            } else{
+                twos++;
+            }
+        }
+        fillers(nums,zeros,0,0);
+        fillers(nums,ones,zeros,1);
+        fillers(nums,twos,ones + zeros,2);
+
+        System.out.println(Arrays.toString(nums));
+    }
+    public void fillers(int[] nums, int count, int index, int number){
+        while(count > 0){
+            nums[index] = number;
+            index++;
+            count--;
+        }
+    }
+
+    public void countCharacters(String s){
+        int count = 1;
+        for(int i = 0;  i < s.length()  - 1; i++){
+            if(s.charAt(i) >= 'A' && s.charAt(i) <= 'Z'){
+                while(s.charAt(i) == s.charAt(i + 1)){
+                    count++;
+                    i++;
+                    if( i == s.length() - 1){
+                        break;
+                    }
+                }
+                if(count > 1){
+                    System.out.println(s.charAt(i) + " " + count);
+                    count = 1;
+                }
+            }
+        }
+    }
+
+    public int majorityElement(int[] nums) {
+        HashMap<Integer,Integer> maps = new HashMap();
+        for(int i = 0; i < nums.length ; i++){
+            if(maps.containsKey(nums[i])){
+                maps.put(nums[i],maps.get(nums[i]) + 1);
+            }
+            else {
+                maps.put(nums[i],1);
+            }
+        }
+
+        for(Map.Entry<Integer,Integer> entry : maps.entrySet()){
+            if(entry.getValue() > nums.length/2){
+                return entry.getKey();
+            }
+        }
+        return 0;
+    }
+
+    public int[] twoSum(int[] nums, int target) {
+        int[] ans = {0,1};
+        if(nums.length == 2){
+            return ans;
+        }
+        HashMap<Integer, Integer> maps = new HashMap();
+        for(int i = 0; i < nums.length; i++){
+            int required = target - nums[i];
+            if(maps.containsKey(required)){
+                ans[0] = maps.get(required);
+                ans[1] = i;
+                break;
+            }
+            maps.put(nums[i],i);
+        }
+        return ans;
+    }
+
+    public static String reverseOnlyFirstWordButNotFirstLetter(String s){
+        String firstWord = "" + (s.split(" ")[0]);
+        String rev = "" + firstWord.charAt(0);
+        for(int i = firstWord.length() - 1; i >= 1; i--){
+            rev += (s.charAt(i));
+        }
+        rev += s.substring(rev.length());
+        int a = 0;
+        return rev;
+    }
+
+    public int[] rearrangeArray(int[] nums) {
+        Stack<Integer> positives = new Stack<Integer>();
+        Stack<Integer> negatives = new Stack<Integer>();
+        int[] ans = new int[nums.length];
+        for(int i = nums.length - 1; i >= 0; i--){
+            if(nums[i] < 0){
+                negatives.push(nums[i]);
+            }
+            else {
+                positives.push(nums[i]);
+            }
+        }
+        for(int i = 0; i < ans.length; i++){
+            if(i % 2 == 0){
+                ans[i] = positives.pop();
+            }
+            else {
+                ans[i] = negatives.pop();
+            }
+        }
+        System.out.println(Arrays.toString(ans));
+        return ans;
+    }
+
+    public int maxSubArray(int[] nums) {
+        int maxSum = Integer.MIN_VALUE;
+        int start = 0;
+        int potentialStart = 0;
+        int end = 0;
+        int sum = 0;
+        int s = 0;
+        for(int i = 0; i < nums.length; i++){
+            sum = sum + nums[i];
+            if(sum > maxSum){
+                maxSum = sum;
+                end = i;
+            }
+            if(sum < 0){
+                sum = 0;
+                potentialStart = i;
+            }
+            if(potentialStart <= end){
+                start = potentialStart;
+            }
+        }
+
+        if(start == end){
+            s = 0;
+        }else {
+            s = start + 1;
+        }
+        System.out.println(Arrays.toString(Arrays.copyOfRange(nums, s, end + 1)));
+        return maxSum;
+    }
+
+    public int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int profit = 0;
+        for(int i = 0; i < prices.length; i++){
+            if(prices[i] < min){
+                min = prices[i];
+            }
+            if((prices[i] - min) >= profit){
+                profit = prices[i] - min;
+            }
+        }
+        System.out.println(profit);
+        return profit;
+    }
+
+    public void nextPermutation(int[] nums){
+        int dipIndex = -1;
+        int nextGreaterIndex = 0;
+        for(int i = nums.length - 1; i > 0; i--){
+            if(nums[i] > nums[i - 1]){
+                dipIndex = i - 1;
+                break;
+            }
+        }
+        if(dipIndex != -1){
+            for(int i = nums.length - 1; i > dipIndex; i--){
+                if(nums[i] > nums[dipIndex]){
+                    nextGreaterIndex = i;
+                    break;
+                }
+            }
+            int temp = nums[dipIndex];
+            nums[dipIndex] = nums[nextGreaterIndex];
+            nums[nextGreaterIndex] = temp;
+
+            reverseHelper(nums,dipIndex + 1, nums.length - 1);
+        }
+        else {
+            reverseHelper(nums,0,nums.length - 1);
+        }
+
+    }
+    private void reverseHelper(int[] array, int start, int stop){
+        for(int i = start; i <= stop; i++){
+            int temp = array[i];
+            array[i] = array[stop];
+            array[stop] = temp;
+            stop--;
+        }
     }
 }
