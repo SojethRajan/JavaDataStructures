@@ -8,7 +8,7 @@ public class DataStructures {
         Blind75.twoSum(numbers,9);
 
 
-
+        System.out.println(Arrays.toString(numbers));
 
 
     }
