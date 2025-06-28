@@ -5,11 +5,11 @@ public class Permutations{
 
     public static void subSets(String processed, String unProcessed){
 
-        if(processed.isEmpty()){
-            System.out.println(unProcessed);
+        if(unProcessed.isEmpty()){
+            System.out.println(processed);
             return;
         }
-        char ch = processed.charAt(0);
+        char ch = unProcessed.charAt(0);
         subSets(processed + ch,unProcessed.substring(1));
         subSets(processed,unProcessed.substring(1));
     }
