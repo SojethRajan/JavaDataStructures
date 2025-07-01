@@ -125,7 +125,7 @@ public class BinarySearch{
         return -1;
 
     }
-    private static int findPivot(int[] array){
+    public static int findPivot(int[] array){
         int start = 0;
         int end = array.length - 1;
         while(start <= end){
@@ -140,6 +140,7 @@ public class BinarySearch{
                 end = middle - 1;
             }
             else{
+                //array[start] < array[middle]
                 start = middle;
             }
         }
