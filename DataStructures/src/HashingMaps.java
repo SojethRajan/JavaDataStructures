@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class HashingMaps{
+public class  HashingMaps{
 
     public static void countFrequenciesOfEachElement(int[] numbers){
 
